@@ -9,6 +9,8 @@ I know that is silly to putting Json in a markdown file.
  - More Things
  - Tag
  - Search
+ - Loading Async
+ - Ads
 
 # Already done
  - Feed (Test version)

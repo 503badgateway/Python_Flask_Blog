@@ -7,6 +7,7 @@ working in process
  - Theme
  - More Things
  - Tag
+ - Search
 
 # Already done
  - Feed (Test version)

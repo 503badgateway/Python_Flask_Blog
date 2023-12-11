@@ -3,6 +3,8 @@ from flask import Flask, jsonify, render_template
 import json
 import markdown, json
 import os
+from Feed import Load
+
 directory = './posts'
 files = os.listdir(directory)
 app = Flask(__name__)
@@ -68,3 +70,7 @@ def show_post(post_id):
         print(f"An exception occurred: {str(e)}")
         return_Content = header_File + nf_File + footer_File
         return return_Content, 500
+
+@app.route("/feed")
+def Feed():
+    return Load()

@@ -7,7 +7,6 @@ I know that is silly to putting Json in a markdown file.
  - SEO?
  - Theme
  - More Things
- - Tag
  - Search
  - Loading Async
  - Ads
@@ -16,4 +15,5 @@ I know that is silly to putting Json in a markdown file.
  - Feed (Test version)
  - Index
  - Base things
+ - Tag (WIP)
  - Ugly theme

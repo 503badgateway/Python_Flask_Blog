@@ -17,3 +17,4 @@ I know that is silly to putting Json in a markdown file.
  - Base things
  - Tag (WIP)
  - Ugly theme
+ - AMP (now only for post)

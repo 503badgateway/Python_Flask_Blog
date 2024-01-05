@@ -26,6 +26,12 @@ except:
     print("Warning: 404 file not exists")
     nf_File = str(" ")
 
+try:
+    amp_Header_File = open(f"./templates/amp_Header.html", "r", encoding="utf-8").read()
+except:
+    print("Warning: AMP header file not exists")
+    amp_Header_File = str(" ")
+
 #Loading config.json (not working for now)
 try:
     f2 = open(f"./config/config.json", "r", encoding="utf-8").read()
@@ -57,7 +63,12 @@ def Home_Page():
                 try:
                     des = y["description"]
                 except:
-                    des = "This Post dont have a description"
+                    #des = "This Post dont have a description"
+                    try:
+                        des = str(f).split()[:10]
+                    except Exception as e:
+                        print(f"An exception occurred: {str(e)}")
+
                 try:
                     tag = ""
                     for tags in y["tags"]:
@@ -83,18 +94,30 @@ def Home_Page():
         return return_Content, 500
 
 
-@app.route('/posts/<int:post_id>')
-def show_post(post_id):
-    try:
-        f = open(f"./posts/{post_id}.md", "r", encoding="utf-8").read()
-        markdown_content = '\n'.join(f.split("---")[1:]) 
-        print(markdown.markdown(markdown_content))
-        final_content = header_File + markdown.markdown(markdown_content) + footer_File
-        return final_content
-    except Exception as e:
-        print(f"An exception occurred: {str(e)}")
-        return_Content = header_File + nf_File + footer_File
-        return return_Content, 500
+@app.route('/<string:is_amp>/<int:post_id>')
+def show_post(post_id, is_amp):
+    if is_amp == "posts":
+        try:
+            f = open(f"./posts/{post_id}.md", "r", encoding="utf-8").read()
+            markdown_content = '\n'.join(f.split("---")[1:])
+            print(markdown.markdown(markdown_content))
+            final_content = header_File + markdown.markdown(markdown_content) + footer_File
+            return final_content
+        except Exception as e:
+            print(f"An exception occurred: {str(e)}")
+            return_Content = header_File + nf_File + footer_File
+            return return_Content, 500
+    elif is_amp == "amp":
+        try:
+            f = open(f"./posts/{post_id}.md", "r", encoding="utf-8").read()
+            markdown_content = '\n'.join(f.split("---")[1:])
+            print(markdown.markdown(markdown_content))
+            final_content = amp_Header_File + markdown.markdown(markdown_content).replace("<img", "<amp-img layout=\"responsive\" width=\"600\"height=\"400\"") + footer_File
+            return final_content
+        except Exception as e:
+            print(f"An exception occurred: {str(e)}")
+            return_Content = header_File + nf_File + footer_File
+            return return_Content, 500
 
 @app.route("/feed")
 def Feed():
